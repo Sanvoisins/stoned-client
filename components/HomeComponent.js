@@ -1,19 +1,17 @@
 import React, { PureComponent } from 'react';
-import {  View, StyleSheet, ScrollView, Image, Text } from 'react-native';
-import { Appbar, Searchbar, Avatar, Card, List } from 'react-native-paper';
-import CardView from 'react-native-cardview';
-
-const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
+import {  View, StyleSheet, ScrollView } from 'react-native';
+import { Appbar, Searchbar, Card, List } from 'react-native-paper';
+import { FloatingAction } from "react-native-floating-action";
 
 export default class HomeComponent extends PureComponent {
     static navigationOptions = {
         headerMode: null
     }
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
 
   render() {
     return (
@@ -25,6 +23,7 @@ export default class HomeComponent extends PureComponent {
             />
             <Appbar.Action 
                 icon="account-circle"
+                onPress={() => this.props.navigation.navigate('Menu')}
             />
         </Appbar.Header>
         <Searchbar
@@ -100,5 +99,17 @@ const styles = StyleSheet.create({
     cardsImage:{
         borderRadius: 5,
         height: 190
+    },
+    fab: {
+        position: 'absolute',
+        margin: 20,
+        right: 0,
+        bottom: 0
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
     }
 });
