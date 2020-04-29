@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {  View, StyleSheet } from 'react-native';
-import { Appbar, Avatar, Title } from 'react-native-paper';
+import { Appbar, Avatar, Title, Button, Subheading } from 'react-native-paper';
 
 class MenuComponent extends Component {
   constructor(props) {
@@ -13,20 +13,35 @@ class MenuComponent extends Component {
     return (
         <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
           <Appbar.Header>
+            <Appbar.BackAction
+              onPress={() => this.props.navigation.navigate('Home')}
+            />
             <Appbar.Content
                 title="STONED"
                 // subtitle="Subtitle"
             />
             <Appbar.Action 
-                icon="account-circle"
-                onPress={() => this.props.navigation.navigate('Menu')}
+                icon="settings"
+                onPress={() => console.log('User settings')}
             />
           </Appbar.Header>
-          <View style={{width: '100%', height: '33.33%', backgroundColor: 'red', alignItems: 'center'}} >
+          <View style={styles.top} >
             <Avatar.Icon size={150} icon="account" style={styles.avatar} />
+            <Title style={styles.title}>Nom</Title>
+            <Subheading style={styles.title}>Prenom</Subheading>
           </View>
-          <View style={{width: '100%', height: '33.33%', backgroundColor: 'blue'}} ></View>
-          <View style={{width: '100%', height: '33.33%', backgroundColor: 'yellow'}} ></View>
+          <View style={styles.center} >
+            <Button mode="contained" onPress={() => console.log('My Takes')} style={styles.button}>
+              Mes prises
+            </Button>
+            <Button dark={true} mode="contained" onPress={() => console.log('Add a Take')} style={styles.button}>
+              Ajouter une prise
+            </Button>
+          </View>
+          <View style={styles.bottom}>
+            <Title style={styles.telephone}>Drogues info service : 0 800 23 13 13</Title>
+            <Title style={styles.telephone}>Fil santé jeunes : 0 800 235 236</Title>
+          </View>
         </View>
     );
   }
@@ -36,18 +51,35 @@ export default MenuComponent;
 
 const styles = StyleSheet.create({
   top: {
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      height: 100
+    width: '100%', 
+    height: '33.33%', 
+    backgroundColor: 'white', 
+    alignItems: 'center', 
+    padding: 20
   },
   center: {
-    flex: 2,
-    flexDirection: 'column',
+    width: '100%', 
+    height: '33.33%', 
+    backgroundColor: 'white', 
+    alignItems: 'center', 
+    padding: 20
+  },
+  bottom: {
+    width: '100%', 
+    height: '33.33%', 
     alignItems: 'center',
-    margin: 20
+    backgroundColor: 'white'
   },
   avatar: {
-    margin: 20
+    margin: 10
+  },
+  title: {
+    margin: 10
+  },
+  button: {
+    margin: 10
+  },
+  telephone: {
+    color: 'green'
   }
 });

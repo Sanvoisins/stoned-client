@@ -37,7 +37,7 @@ export default class HomeComponent extends PureComponent {
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                 <Card style={styles.cards}>
                     <Card.Title 
-                        title="Card Title"
+                        title="Drug 1"
                         style={styles.cardHeader}
                     />
                     <Card.Cover 
@@ -47,7 +47,7 @@ export default class HomeComponent extends PureComponent {
                 </Card>
                 <Card style={styles.cards}>
                     <Card.Title 
-                        title="Card Title"
+                        title="Drug 2"
                         style={styles.cardHeader}
                     />
                     <Card.Cover
@@ -57,7 +57,7 @@ export default class HomeComponent extends PureComponent {
                 </Card>
                 <Card style={styles.cards}>
                     <Card.Title 
-                        title="Card Title"
+                        title="Drug 3"
                         style={styles.cardHeader}
                     />
                     <Card.Cover
@@ -67,7 +67,7 @@ export default class HomeComponent extends PureComponent {
                 </Card>
                 <Card style={styles.cards}>
                     <Card.Title 
-                        title="Card Title"
+                        title="Drug 4"
                         style={styles.cardHeader}
                     />
                     <Card.Cover
