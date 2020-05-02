@@ -39,6 +39,7 @@ export default class HomeComponent extends PureComponent {
                     <Card.Title 
                         title="Drug 1"
                         style={styles.cardHeader}
+                        onPress={() => this.props.navigation.navigate('DrugsInfo')}
                     />
                     <Card.Cover 
                         style={styles.cardsImage}

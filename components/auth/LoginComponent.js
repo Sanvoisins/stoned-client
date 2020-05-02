@@ -43,7 +43,7 @@ class LoginComponent extends Component {
         <View style={styles.top}>
           <TextInput 
             style={styles.text}
-            label='Pseudo'
+            label='E-mail'
             value={this.state.text}
             onChangeText={text => this.setState({ text })}
           />
