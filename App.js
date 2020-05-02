@@ -6,6 +6,8 @@ import LoginComponent from './components/auth/LoginComponent';
 import SigninComponent from './components/auth/SigninComponent';
 import HomeComponent from './components/HomeComponent';
 import MenuComponent from './components/user/MenuComponent';
+import AddTakeComponent from './components/user/takes/AddTakeComponent';
+import ListTakesComponent from './components/user/takes/ListTakesComponent';
 
 const Stack = createStackNavigator();
 
@@ -31,8 +33,16 @@ export default function App() {
           component={HomeComponent} 
         />
         <Stack.Screen 
-          name="Menu" 
+          name="UserMenu" 
           component={MenuComponent} 
+        />
+        <Stack.Screen 
+          name="TakesList" 
+          component={ListTakesComponent} 
+        />
+        <Stack.Screen 
+          name="AddTake" 
+          component={AddTakeComponent} 
         />
       </Stack.Navigator>
     </NavigationContainer>

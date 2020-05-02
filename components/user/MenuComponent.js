@@ -11,7 +11,7 @@ class MenuComponent extends Component {
 
   render() {
     return (
-        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+        <View style={styles.container}>
           <Appbar.Header>
             <Appbar.BackAction
               onPress={() => this.props.navigation.navigate('Home')}
@@ -31,10 +31,10 @@ class MenuComponent extends Component {
             <Subheading style={styles.title}>Prenom</Subheading>
           </View>
           <View style={styles.center} >
-            <Button mode="contained" onPress={() => console.log('My Takes')} style={styles.button}>
+            <Button mode="contained" onPress={() => this.props.navigation.navigate('TakesList')} style={styles.button}>
               Mes prises
             </Button>
-            <Button dark={true} mode="contained" onPress={() => console.log('Add a Take')} style={styles.button}>
+            <Button dark={true} mode="contained" onPress={() => this.props.navigation.navigate('AddTake')} style={styles.button}>
               Ajouter une prise
             </Button>
           </View>
@@ -50,6 +50,11 @@ class MenuComponent extends Component {
 export default MenuComponent;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1, 
+    flexDirection: 'column', 
+    justifyContent: 'space-between'
+  },
   top: {
     width: '100%', 
     height: '33.33%', 

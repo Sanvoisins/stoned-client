@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Appbar } from 'react-native-paper';
 
-class SigninComponent extends Component {
+class ListTakesComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,14 +12,22 @@ class SigninComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Appbar.Header>
+          <Appbar.BackAction
+              onPress={() => this.props.navigation.navigate('UserMenu')}
+          />
+          <Appbar.Content
+              title="STONED"
+              subtitle="Liste de mes prises"
+          />
+        </Appbar.Header>
         <View style={styles.top}>
         </View>
         <View style={styles.center}>
-          <Button mode="contained" onPress={() => this.props.navigation.navigate('Home')}>
-            Enregistrer mon inscription
-          </Button>
+
         </View>
         <View style={styles.bottom}>
+
         </View>
       </View>
     );
@@ -52,4 +60,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   }
 });
-export default SigninComponent;
+
+export default ListTakesComponent;

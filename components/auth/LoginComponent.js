@@ -12,8 +12,7 @@ class LoginComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.top}
-        >
+        <View style={styles.top}>
         </View>
         <View style={styles.center}>
           <Button mode="contained" onPress={() => this.props.navigation.navigate('Home')}>

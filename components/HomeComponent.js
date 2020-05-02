@@ -23,7 +23,7 @@ export default class HomeComponent extends PureComponent {
             />
             <Appbar.Action 
                 icon="account-circle"
-                onPress={() => this.props.navigation.navigate('Menu')}
+                onPress={() => this.props.navigation.navigate('UserMenu')}
             />
         </Appbar.Header>
         <Searchbar
