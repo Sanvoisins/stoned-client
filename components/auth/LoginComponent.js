@@ -1,34 +1,43 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
 import base64 from 'react-native-base64';
 import { Appbar, Button, TextInput } from 'react-native-paper';
+import * as axios from 'axios';
 
 class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      login: 'toinou',
-      password: 'toinou'
+      token: '',
+      email: '',
+      password: ''
     };
   }
 
-  _login = () => {
-    fetch('https://startupweek-stoned.herokuapp.com/auth/users/login', {
-      method: 'get',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + Buffer.from(this.state.login + ":" + this.state.password).toString('base64')
-      },
-    }).then(response => {
-      console.log(response);
-    })
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem('@Token:key', this.state.token);
+    } catch (error) {
+     console.error("🚫" + error);
+    }
   }
-
-  componentWillMount() {
-    // this._login();
-    console.log(`Basic ${base64.encode(`${this.state.login}:${this.state.password}`)}`)
+  login() {
+    let encoded = base64.encode(this.state.email.toLowerCase() + ':' + this.state.password.toLowerCase());
+    let axiosConfig = {
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + encoded 
+      }
+    };
+    axios.get('https://startupweek-stoned.herokuapp.com/auth/users/login', axiosConfig)
+    .then((response) => {
+      console.log(response.data.token);
+      this.props.navigation.navigate('Home');
+    })
+    .catch(function (error) {
+      console.log("🚫" + error);
+      console.error(error);
+    });
   }
 
   render() {
@@ -43,19 +52,19 @@ class LoginComponent extends Component {
         <View style={styles.top}>
           <TextInput 
             style={styles.text}
-            label='Pseudo'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            label='Email'
+            value={this.state.email}
+            onChangeText={text => this.setState({ email: text })}
           />
           <TextInput 
             style={styles.text}
             label='Mot de passe'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            value={this.state.password}
+            onChangeText={text => this.setState({ password: text })}
           />
         </View>
         <View style={styles.center}>
-          <Button mode="contained" onPress={() => this.props.navigation.navigate('Home')}>
+          <Button mode="contained" onPress={() => this.login()}>
             Se connecter
           </Button>
         </View>

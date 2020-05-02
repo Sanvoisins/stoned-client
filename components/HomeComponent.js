@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Appbar, Searchbar, Card, List } from 'react-native-paper';
 import { FloatingAction } from "react-native-floating-action";  
 
-export default class HomeComponent extends PureComponent {
+export default class HomeComponent extends Component {
     static navigationOptions = {
         headerMode: null
     }
