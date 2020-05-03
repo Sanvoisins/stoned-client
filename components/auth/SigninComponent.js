@@ -1,13 +1,57 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, TextInput, Appbar } from 'react-native-paper';
+import { Button, TextInput, Appbar, Title } from 'react-native-paper';
+import * as axios from 'axios';
 
 class SigninComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text:'',
+      errorMessage: '',
+      email:'',
+      password: '',
+      confirmedPassword:'',
+      first_name:'',
+      last_name:'',
+      age:'',
     };
+  }
+  htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  _registerUser = () => {
+    const data = this.state;
+    console.log(data);
+    if(data.email !== "" && data.password !== "" && data.confirmedPassword !== "" && data.first_name !== "" && data.last_name !== "" && data.age !== "") {
+      console.log('Passwords : ' + this.state.password + ' / ' + this.state.confirmedPassword)
+      if(this.state.password !== this.state.confirmedPassword) {
+        this.setState({ errorMessage: 'Password are not the same'})
+      } else {
+        const newUser = {
+          "email": this.htmlEntities(data.email),
+          "password": this.htmlEntities(data.password),
+          "first_name": this.htmlEntities(data.first_name),
+          "last_name": this.htmlEntities(data.last_name),
+          "age": this.htmlEntities(data.date),
+        };
+        let axiosConfig = {
+          headers: {
+              'Content-Type': 'application/json',
+          }
+        };
+        axios.post('https://startupweek-stoned.herokuapp.com/auth/users/', newUser, axiosConfig)
+        .then((response) => {
+          this.props.navigation.navigate('Login');
+        })
+        .catch(function (error) {
+          console.log("🚫" + error);
+          console.error(error);
+        });
+      }
+    } else (
+      this.setState({ errorMessage: 'Vous n\'avez pas tous rempli'})
+    )
   }
 
   render() {
@@ -25,45 +69,46 @@ class SigninComponent extends Component {
       {/* <View style={styles.top}>
       </View> */}
         <View style={styles.center}>
+          <Title style={styles.errorMessage}>{ this.state.errorMessage }</Title>
           <TextInput 
             style={styles.text}
-            label='E-mail'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            label='Email'
+            value={this.state.email}
+            onChangeText={text => this.setState({ email: text })}
           />
           <TextInput 
             style={styles.text}
             label='Mot de passe'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            value={this.state.password}
+            onChangeText={text => this.setState({password: text})}
           />
           <TextInput 
             style={styles.text}
             label='Confirmer mot de passe'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            value={this.state.confirmedPassword}
+            onChangeText={text => this.setState({confirmedPassword: text })}
           />
           <TextInput 
             style={styles.text}
             label='Prénom'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            value={this.state.first_name}
+            onChangeText={text => this.setState({ first_name: text })}
           />
           <TextInput 
             style={styles.text}
             label='Nom'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            value={this.state.last_name}
+            onChangeText={text => this.setState({ last_name: text })}
           />
           <TextInput 
             style={styles.text}
             label='Age'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            value={this.state.age}
+            onChangeText={text => this.setState({ age: text })}
           />
         </View>
         <View style={styles.bottom}>
-          <Button style={styles.button} mode="contained" onPress={() => this.props.navigation.navigate('Home')}>
+          <Button style={styles.button} mode="contained" onPress={() => this._registerUser()}>
             Enregistrer mon inscription
           </Button>
         </View>
@@ -105,6 +150,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 300, 
     height: 50
+  },
+  errorMessage: {
+    color: 'red'
   }
 });
 export default SigninComponent;
