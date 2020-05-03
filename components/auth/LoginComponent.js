@@ -62,6 +62,7 @@ class LoginComponent extends Component {
             label='Mot de passe'
             value={this.state.password}
             onChangeText={text => this.setState({ password: text })}
+            secureTextEntry={true}
           />
         </View>
         <View style={styles.center}>

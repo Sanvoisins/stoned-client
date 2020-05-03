@@ -33,13 +33,14 @@ class SigninComponent extends Component {
           "password": this.htmlEntities(data.password),
           "first_name": this.htmlEntities(data.first_name),
           "last_name": this.htmlEntities(data.last_name),
-          "age": this.htmlEntities(data.date),
+          "age": this.htmlEntities(data.age),
         };
         let axiosConfig = {
           headers: {
               'Content-Type': 'application/json',
           }
         };
+        console.log(newUser);
         axios.post('https://startupweek-stoned.herokuapp.com/auth/users/', newUser, axiosConfig)
         .then((response) => {
           this.props.navigation.navigate('Login');
@@ -75,36 +76,50 @@ class SigninComponent extends Component {
             label='Email'
             value={this.state.email}
             onChangeText={text => this.setState({ email: text })}
+            autoCompleteType="email"
+            textContentType="emailAddress"
           />
           <TextInput 
             style={styles.text}
             label='Mot de passe'
             value={this.state.password}
             onChangeText={text => this.setState({password: text})}
+            autoCompleteType="password"
+            textContentType="password"
+            secureTextEntry={true}
           />
           <TextInput 
             style={styles.text}
             label='Confirmer mot de passe'
             value={this.state.confirmedPassword}
             onChangeText={text => this.setState({confirmedPassword: text })}
+            autoCompleteType="password"
+            textContentType="password"
+            secureTextEntry={true}
           />
           <TextInput 
             style={styles.text}
             label='Prénom'
             value={this.state.first_name}
             onChangeText={text => this.setState({ first_name: text })}
+            autoCompleteType="name"
+            textContentType="name"
           />
           <TextInput 
             style={styles.text}
             label='Nom'
             value={this.state.last_name}
             onChangeText={text => this.setState({ last_name: text })}
+            autoCompleteType="name"
+            textContentType="name"
           />
           <TextInput 
             style={styles.text}
             label='Age'
             value={this.state.age}
+            mode='numeric'
             onChangeText={text => this.setState({ age: text })}
+            keyboardType="numeric"
           />
         </View>
         <View style={styles.bottom}>
