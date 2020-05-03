@@ -14,17 +14,20 @@ class SigninComponent extends Component {
     return (
       <View style={styles.container}>
         <Appbar.Header>
+          <Appbar.BackAction
+            onPress={() => this.props.navigation.navigate('Login')}
+          /> 
           <Appbar.Content
                 title="STONED"
                 // subtitle="Subtitle"
-          />
+          />       
         </Appbar.Header>
       {/* <View style={styles.top}>
       </View> */}
         <View style={styles.center}>
           <TextInput 
             style={styles.text}
-            label='Pseudo'
+            label='E-mail'
             value={this.state.text}
             onChangeText={text => this.setState({ text })}
           />
@@ -42,7 +45,13 @@ class SigninComponent extends Component {
           />
           <TextInput 
             style={styles.text}
-            label='Téléphone'
+            label='Prénom'
+            value={this.state.text}
+            onChangeText={text => this.setState({ text })}
+          />
+          <TextInput 
+            style={styles.text}
+            label='Nom'
             value={this.state.text}
             onChangeText={text => this.setState({ text })}
           />
@@ -52,7 +61,6 @@ class SigninComponent extends Component {
             value={this.state.text}
             onChangeText={text => this.setState({ text })}
           />
-
         </View>
         <View style={styles.bottom}>
           <Button style={styles.button} mode="contained" onPress={() => this.props.navigation.navigate('Home')}>
@@ -82,14 +90,14 @@ const styles = StyleSheet.create({
   },
   center: {
     width: '100%', 
-    height: '45%', 
+    height: '55%', 
     backgroundColor: 'white', 
     alignItems: 'center', 
     padding: 20
   },
   bottom: {
     width: '100%', 
-    height: '35%', 
+    height: '25%', 
     alignItems: 'center',
     backgroundColor: 'white'
   },

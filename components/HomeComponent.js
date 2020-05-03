@@ -34,7 +34,7 @@ export default class HomeComponent extends Component {
         let axiosConfig = {
         headers: {
             'Content-Type': 'application/json',
-            'x-access-token': this.state.token 
+            'x-access-token': this.state.token
          }
         };
         axios.get('https://startupweek-stoned.herokuapp.com/drugs/types/', axiosConfig)
@@ -106,13 +106,13 @@ export default class HomeComponent extends Component {
                 title="STONED"
                 // subtitle="Subtitle"
             />
-            <Appbar.Action 
+            <Appbar.Action
                 icon="account-circle"
                 onPress={() => this.props.navigation.navigate('Menu')}
             />
         </Appbar.Header>
         {/* <Searchbar
-            placeholder="Recherche" 
+            placeholder="Recherche"
             value=""
         /> */}
         <View>
@@ -122,13 +122,13 @@ export default class HomeComponent extends Component {
                 pertuArr.map((element, i) => {
                     return (
                         <Card style={styles.cards} key={i}>
-                            <Card.Title 
+                            <Card.Title
                                 title={ element.name }
                                 style={styles.cardHeader}
                             />
-                            <Card.Cover 
+                            <Card.Cover
                                 style={styles.cardsImage}
-                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }} 
+                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
                             />
                         </Card>
                       );
@@ -141,13 +141,13 @@ export default class HomeComponent extends Component {
                 stimuArr.map((element, i) => {
                     return (
                         <Card style={styles.cards} key={i}>
-                            <Card.Title 
+                            <Card.Title
                                 title={ element.name }
                                 style={styles.cardHeader}
                             />
-                            <Card.Cover 
+                            <Card.Cover
                                 style={styles.cardsImage}
-                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }} 
+                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
                             />
                         </Card>
                       );
@@ -160,13 +160,13 @@ export default class HomeComponent extends Component {
                 depreArr.map((element, i) => {
                     return (
                         <Card style={styles.cards} key={i}>
-                            <Card.Title 
+                            <Card.Title
                                 title={ element.name }
                                 style={styles.cardHeader}
                             />
-                            <Card.Cover 
+                            <Card.Cover
                                 style={styles.cardsImage}
-                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }} 
+                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
                             />
                         </Card>
                       );

@@ -6,6 +6,7 @@ import LoginComponent from './components/auth/LoginComponent';
 import SigninComponent from './components/auth/SigninComponent';
 import HomeComponent from './components/HomeComponent';
 import MenuComponent from './components/user/MenuComponent';
+import DrugsInfoComponent from './components/drugs/DrugsInfoComponent'
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,10 @@ export default function App() {
         <Stack.Screen 
           name="Menu" 
           component={MenuComponent} 
+        />
+        <Stack.Screen 
+          name="DrugsInfo" 
+          component={DrugsInfoComponent} 
         />
       </Stack.Navigator>
     </NavigationContainer>
