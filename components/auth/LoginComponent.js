@@ -8,15 +8,15 @@ class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: '',
       email: '',
       password: ''
     };
   }
 
-  _storeData = async () => {
+  _storeData = (token) => {
     try {
-      await AsyncStorage.setItem('@Token:key', this.state.token);
+      // console.log("Login : " + this.state.token);
+      AsyncStorage.setItem('@token', token);
     } catch (error) {
      console.error("🚫" + error);
     }
@@ -31,8 +31,9 @@ class LoginComponent extends Component {
     };
     axios.get('https://startupweek-stoned.herokuapp.com/auth/users/login', axiosConfig)
     .then((response) => {
-      console.log(response.data.token);
+      // console.log(response.data.token);
       this.props.navigation.navigate('Home');
+      this._storeData(response.data.token);
     })
     .catch(function (error) {
       console.log("🚫" + error);
