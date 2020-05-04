@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, AsyncStorage } from 'react-native';
 import base64 from 'react-native-base64';
-import { Appbar, Button, TextInput } from 'react-native-paper';
+import { Appbar, Button, TextInput, Title } from 'react-native-paper';
 import * as axios from 'axios';
 
 class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      errorMessage: '',
       email: '',
       password: ''
     };
@@ -35,9 +36,11 @@ class LoginComponent extends Component {
       this.props.navigation.navigate('Home');
       this._storeData(response.data.token);
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log("🚫" + error);
-      console.error(error);
+      this.setState({
+        errorMessage: 'Problèmes de connexion'
+      });
     });
   }
 
@@ -51,6 +54,7 @@ class LoginComponent extends Component {
             />
       </Appbar.Header>
         <View style={styles.top}>
+          <Title style={styles.errorMessage}>{ this.state.errorMessage }</Title>
           <TextInput 
             style={styles.text}
             label='Email'
@@ -112,6 +116,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 300, 
     height: 50, 
+  },
+  errorMessage: {
+    color: 'red'
   }
 });
 

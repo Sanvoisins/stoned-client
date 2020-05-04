@@ -15,7 +15,8 @@ export default class HomeComponent extends Component {
             PERTU: [],
             STIMU: [],
             DEPRE: [],
-            token: ''
+            token: '',
+            errorMessage: ''
         };
     }
 
@@ -44,9 +45,11 @@ export default class HomeComponent extends Component {
                 data: response.data.drugs
             })
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log("🚫" + error);
-            console.error(error);
+            this.setState({
+                errorMessage: 'Problèmes d\'affichage des données'
+            });
         });
     };
     _drugs = () => {
@@ -116,6 +119,7 @@ export default class HomeComponent extends Component {
             value=""
         /> */}
         <View>
+            <Title style={styles.errorMessage}>{ this.state.errorMessage }</Title>
             <Title style={styles.typeTitle}>{ types.title.PERTU }</Title>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {
@@ -200,5 +204,8 @@ const styles = StyleSheet.create({
     typeTitle: {
         margin: 10,
         marginTop: 20
+    },
+    errorMessage: {
+        color: 'red'
     }
 });
