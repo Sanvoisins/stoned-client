@@ -73,9 +73,6 @@ class LoginComponent extends Component {
           <Button mode="contained" onPress={() => this.login()}>
             Se connecter
           </Button>
-          <Button mode="outlined" onPress={() => this.props.navigation.navigate('Home')}>
-            Go Home
-          </Button>
         </View>
         <View style={styles.bottom}>
           <Button mode="outlined" onPress={() => this.props.navigation.navigate('Signin')}>

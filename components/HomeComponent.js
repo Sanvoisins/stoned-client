@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, AsyncStorage, Label } from 'react-native';
-import { Appbar, Searchbar, Card, List, Title } from 'react-native-paper';
+import { View, StyleSheet, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
+import { Appbar, Searchbar, Card, Button, Title } from 'react-native-paper';
 import types from '../_enums/types';
 import * as axios from 'axios';
 
@@ -53,7 +53,7 @@ export default class HomeComponent extends Component {
         });
     };
     _drugs = () => {
-        drugsTypes = this.state.data;
+       const drugsTypes = this.state.data;
         drugsTypes.map(element => {
             if(element[types.PERTU]) {
                 if(element[types.PERTU].length == 0) {
@@ -125,16 +125,18 @@ export default class HomeComponent extends Component {
             {
                 pertuArr.map((element, i) => {
                     return (
-                        <Card style={styles.cards} key={i}>
-                            <Card.Title
-                                title={ element.name }
-                                style={styles.cardHeader}
-                            />
-                            <Card.Cover
-                                style={styles.cardsImage}
-                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
-                            />
-                        </Card>
+                        <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
+                            <Card style={styles.cards}>
+                                <Card.Title
+                                    title={ element.name }
+                                    style={styles.cardHeader}
+                                />
+                                <Card.Cover
+                                    style={styles.cardsImage}
+                                    source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
+                                />
+                            </Card>
+                        </TouchableOpacity>
                       );
                 })
             }
@@ -144,16 +146,18 @@ export default class HomeComponent extends Component {
             {
                 stimuArr.map((element, i) => {
                     return (
-                        <Card style={styles.cards} key={i}>
-                            <Card.Title
-                                title={ element.name }
-                                style={styles.cardHeader}
-                            />
-                            <Card.Cover
-                                style={styles.cardsImage}
-                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
-                            />
-                        </Card>
+                        <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
+                            <Card style={styles.cards}>
+                                <Card.Title
+                                    title={ element.name }
+                                    style={styles.cardHeader}
+                                />
+                                <Card.Cover
+                                    style={styles.cardsImage}
+                                    source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
+                                />
+                            </Card>
+                        </TouchableOpacity>
                       );
                 })
             }
@@ -163,23 +167,22 @@ export default class HomeComponent extends Component {
             {
                 depreArr.map((element, i) => {
                     return (
-                        <Card style={styles.cards} key={i}>
-                            <Card.Title
-                                title={ element.name }
-                                style={styles.cardHeader}
-                            />
-                            <Card.Cover
-                                style={styles.cardsImage}
-                                source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
-                            />
-                        </Card>
+                        <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
+                            <Card style={styles.cards}>
+                                <Card.Title
+                                    title={ element.name }
+                                    style={styles.cardHeader}
+                                />
+                                <Card.Cover
+                                    style={styles.cardsImage}
+                                    source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
+                                />
+                            </Card>
+                        </TouchableOpacity>
                       );
                 })
             }
             </ScrollView>
-            <Button mode="outlined" onPress={() => this.props.navigation.navigate('DrugsInfo')}>
-            Go Drugs
-          </Button>
         </View>
       </View>
     );

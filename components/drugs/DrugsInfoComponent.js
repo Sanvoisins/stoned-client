@@ -14,8 +14,7 @@ export class DrugsInfoComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idDrug : 1,
-            token : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzUsImV4cCI6MTU4ODY5NzI2OH0.-XvlmaABXrxRSiciYhBiAqsG4GypUcWTDp3xFceo09M",
+            token: '',
             visible: false,
             image : { uri: 'https://picsum.photos/700' },
             buttonTitle : "Statut",
@@ -34,25 +33,25 @@ export class DrugsInfoComponent extends Component {
                 this.setState({ token })
             }
         } catch (error) {
-            console.error(":no_entry_sign:" + error);
+            console.error("🚫" + error);
         }
     };
 
     _getDrug = () => {
+        const { drugId } = this.props.route.params;
         let axiosConfig = {
             headers: {
                 'Content-Type': 'application/json',
                 'x-access-token': this.state.token
             }
         };
-        axios.get("https://startupweek-stoned.herokuapp.com/drugs/types/" + this.state.idDrug, axiosConfig)
+        axios.get("https://startupweek-stoned.herokuapp.com/drugs/types/" + drugId, axiosConfig)
         .then((response) => {
             // console.log(JSON.stringify(response.data.drugs[0].name))
             this.setState({drug:response.data.drugs[0]})
-            console.log(this.state.drug.name)
         })
         .catch((error) => {
-            console.log(":no_entry_sign:" + error);
+            console.log("🚫" + error);
             this.setState({
                 errorMessage: "Problèmes d'affichage des données"
             });
@@ -60,7 +59,8 @@ export class DrugsInfoComponent extends Component {
     }
 
     componentDidMount = () => {
-        this._getDrug();
+        this._retrieveData();
+        setTimeout(() => {this._getDrug()}, 1000);
     }
     render() {
         return (
