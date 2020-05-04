@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView} from 'react-native';
 import { Button, TextInput, Appbar, Title } from 'react-native-paper';
 import * as axios from 'axios';
 
@@ -57,7 +57,7 @@ class SigninComponent extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Appbar.Header>
           <Appbar.BackAction
             onPress={() => this.props.navigation.navigate('Login')}
@@ -127,7 +127,7 @@ class SigninComponent extends Component {
             Enregistrer mon inscription
           </Button>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
