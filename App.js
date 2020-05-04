@@ -8,41 +8,44 @@ import HomeComponent from './components/HomeComponent';
 import MenuComponent from './components/user/MenuComponent';
 import AddTakeComponent from './components/user/takes/AddTakeComponent';
 import ListTakesComponent from './components/user/takes/ListTakesComponent';
+import DrugsInfoComponent from './components/drugs/DrugsInfoComponent'
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator 
+      <Stack.Navigator
         initialRouteName="Login"
         screenOptions={{
           headerShown: false
         }}
       >
-        <Stack.Screen 
-          name="Login" 
-          component={LoginComponent} 
+        <Stack.Screen
+          name="Login"
+          component={LoginComponent}
         />
-        <Stack.Screen 
-          name="Signin" 
-          component={SigninComponent} 
+        <Stack.Screen
+          name="Signin"
+          component={SigninComponent}
         />
-        <Stack.Screen 
-          name="Home" 
-          component={HomeComponent} 
+        <Stack.Screen
+          name="Home"
+          component={HomeComponent}
         />
-        <Stack.Screen 
-          name="UserMenu" 
-          component={MenuComponent} 
+        <Stack.Screen
+          name="UserMenu"
+          component={MenuComponent}
         />
-        <Stack.Screen 
-          name="TakesList" 
-          component={ListTakesComponent} 
+        <Stack.Screen
+          name="TakesList"
+          component={ListTakesComponent}
         />
-        <Stack.Screen 
-          name="AddTake" 
-          component={AddTakeComponent} 
+        <Stack.Screen
+          name="AddTake"
+          component={AddTakeComponent}
+          name="DrugsInfo"
+          component={DrugsInfoComponent}
         />
       </Stack.Navigator>
     </NavigationContainer>
