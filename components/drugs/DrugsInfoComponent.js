@@ -58,7 +58,7 @@ export class DrugsInfoComponent extends Component {
             });
         });
     }
-    
+
     componentDidMount = () => {
         this._getDrug();
     }
@@ -68,11 +68,11 @@ export class DrugsInfoComponent extends Component {
                 <Appbar.Header>
                     <Appbar.BackAction
                         onPress={() => this.props.navigation.navigate('Home')}
-                    /> 
+                    />
                     <Appbar.Content
                         title="STONED"
                         subtitle="Information d'une drogue"
-                    />       
+                    />
                 </Appbar.Header>
               <View style={styles.top}>
                 <Image
@@ -84,19 +84,19 @@ export class DrugsInfoComponent extends Component {
                   <View style={styles.topCenter}>
                     <Text style={styles.title1}>
                     {this.state.drug.name}
-                        </Text> 
+                        </Text>
                         <Button style={styles.buttonFalse} mode="contained">
-                            Drogue Douce   
+                            Drogue Douce
                         </Button>
-                       
+
                     </View>
                     <View style={styles.bottomCenter}>
                         <Text style={styles.resume}>
                             {this.state.resume1}
-                        </Text> 
+                        </Text>
                         <Text style={styles.resume}>
                             {this.state.resume2}
-                        </Text> 
+                        </Text>
                         {/* <Button mode="outlined" onPress={() => this.props.navigation.navigate('TestFile')}>
             Go drugs
           </Button> */}
@@ -109,7 +109,7 @@ export class DrugsInfoComponent extends Component {
                     </Text>
                     <View style={styles.buttonList}>
                         <Button style={styles.button} mode="contained">
-                            Statut légal    
+                            Statut légal
                         </Button>
                         <Button style={styles.button} mode="contained">
                             Depistage
@@ -137,7 +137,7 @@ export class DrugsInfoComponent extends Component {
                             Conseils
                         </Button>
                     </View>
-                    
+
               </View>
 
             </View>
@@ -147,26 +147,26 @@ export class DrugsInfoComponent extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
-        flexDirection: 'column', 
+        flex: 1,
+        flexDirection: 'column',
         justifyContent: 'space-between',
         backgroundColor: 'white'
     },
     top: {
-        width: '100%', 
-        height: '20%', 
-        backgroundColor: 'grey', 
+        width: '100%',
+        height: '20%',
+        backgroundColor: 'grey',
         alignItems: 'center'
     },
     center: {
-        width: '100%', 
-        height: '35%', 
-        backgroundColor: 'white', 
+        width: '100%',
+        height: '35%',
+        backgroundColor: 'white',
         alignItems: 'center'
     },
     bottom: {
-        width: '100%', 
-        height: '45%', 
+        width: '100%',
+        height: '45%',
         backgroundColor: 'white',
         alignItems: 'center'
 
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
         marginRight: 230,
         marginTop: 20,
         fontSize: 25,
-        fontWeight: "bold"      
+        fontWeight: "bold"
     },
     buttonFalse: {
         backgroundColor: "#32CD32",

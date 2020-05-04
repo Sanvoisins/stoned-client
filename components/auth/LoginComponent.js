@@ -1,34 +1,47 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
 import base64 from 'react-native-base64';
-import { Appbar, Button, TextInput } from 'react-native-paper';
+import { Appbar, Button, TextInput, Title } from 'react-native-paper';
+import * as axios from 'axios';
 
 class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      login: 'toinou',
-      password: 'toinou'
+      errorMessage: '',
+      email: '',
+      password: ''
     };
   }
 
-  _login = () => {
-    fetch('https://startupweek-stoned.herokuapp.com/auth/users/login', {
-      method: 'get',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + Buffer.from(this.state.login + ":" + this.state.password).toString('base64')
-      },
-    }).then(response => {
-      console.log(response);
-    })
+  _storeData = (token) => {
+    try {
+      // console.log("Login : " + this.state.token);
+      AsyncStorage.setItem('@token', token);
+    } catch (error) {
+     console.error("🚫" + error);
+    }
   }
-
-  componentWillMount() {
-    // this._login();
-    console.log(`Basic ${base64.encode(`${this.state.login}:${this.state.password}`)}`)
+  login() {
+    let encoded = base64.encode(this.state.email.toLowerCase() + ':' + this.state.password.toLowerCase());
+    let axiosConfig = {
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + encoded 
+      }
+    };
+    axios.get('https://startupweek-stoned.herokuapp.com/auth/users/login', axiosConfig)
+    .then((response) => {
+      // console.log(response.data.token);
+      this.props.navigation.navigate('Home');
+      this._storeData(response.data.token);
+    })
+    .catch((error) => {
+      console.log("🚫" + error);
+      this.setState({
+        errorMessage: 'Problèmes de connexion'
+      });
+    });
   }
 
   render() {
@@ -41,21 +54,23 @@ class LoginComponent extends Component {
             />
       </Appbar.Header>
         <View style={styles.top}>
+          <Title style={styles.errorMessage}>{ this.state.errorMessage }</Title>
           <TextInput 
             style={styles.text}
-            label='Pseudo'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            label='Email'
+            value={this.state.email}
+            onChangeText={text => this.setState({ email: text })}
           />
           <TextInput 
             style={styles.text}
             label='Mot de passe'
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            value={this.state.password}
+            onChangeText={text => this.setState({ password: text })}
+            secureTextEntry={true}
           />
         </View>
         <View style={styles.center}>
-          <Button mode="contained" onPress={() => this.props.navigation.navigate('Home')}>
+          <Button mode="contained" onPress={() => this.login()}>
             Se connecter
           </Button>
           <Button mode="outlined" onPress={() => this.props.navigation.navigate('Home')}>
@@ -105,6 +120,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 300, 
     height: 50, 
+  },
+  errorMessage: {
+    color: 'red'
   }
 });
 

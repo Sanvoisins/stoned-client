@@ -7,42 +7,37 @@ import SigninComponent from './components/auth/SigninComponent';
 import HomeComponent from './components/HomeComponent';
 import MenuComponent from './components/user/MenuComponent';
 import DrugsInfoComponent from './components/drugs/DrugsInfoComponent'
-import TestFile from './components/drugs/TestFile'
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator 
+      <Stack.Navigator
         initialRouteName="Login"
         screenOptions={{
           headerShown: false
         }}
       >
-        <Stack.Screen 
-          name="Login" 
-          component={LoginComponent} 
+        <Stack.Screen
+          name="Login"
+          component={LoginComponent}
         />
-        <Stack.Screen 
-          name="Signin" 
-          component={SigninComponent} 
+        <Stack.Screen
+          name="Signin"
+          component={SigninComponent}
         />
-        <Stack.Screen 
-          name="Home" 
-          component={HomeComponent} 
+        <Stack.Screen
+          name="Home"
+          component={HomeComponent}
         />
-        <Stack.Screen 
-          name="Menu" 
-          component={MenuComponent} 
+        <Stack.Screen
+          name="Menu"
+          component={MenuComponent}
         />
-        <Stack.Screen 
-          name="DrugsInfo" 
-          component={DrugsInfoComponent} 
-        />
-        <Stack.Screen 
-          name="TestFile" 
-          component={TestFile} 
+        <Stack.Screen
+          name="DrugsInfo"
+          component={DrugsInfoComponent}
         />
       </Stack.Navigator>
     </NavigationContainer>
