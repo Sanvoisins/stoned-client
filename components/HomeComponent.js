@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { Appbar, Searchbar, Card, List } from 'react-native-paper';
+import { Appbar, Searchbar, Card, List, Button } from 'react-native-paper';
 import { FloatingAction } from "react-native-floating-action";  
 
 export default class HomeComponent extends PureComponent {
@@ -76,6 +76,9 @@ export default class HomeComponent extends PureComponent {
                     />
                 </Card>
             </ScrollView>
+            <Button mode="outlined" onPress={() => this.props.navigation.navigate('DrugsInfo')}>
+            Go Drugs
+          </Button>
         </View>
       </View>
     );
