@@ -6,11 +6,8 @@ import LoginComponent from './components/auth/LoginComponent';
 import SigninComponent from './components/auth/SigninComponent';
 import HomeComponent from './components/HomeComponent';
 import MenuComponent from './components/user/MenuComponent';
-<<<<<<< Updated upstream
-=======
 import DrugsInfoComponent from './components/drugs/DrugsInfoComponent'
 import TestFile from './components/drugs/TestFile'
->>>>>>> Stashed changes
 
 const Stack = createStackNavigator();
 
@@ -39,8 +36,6 @@ export default function App() {
           name="Menu" 
           component={MenuComponent} 
         />
-<<<<<<< Updated upstream
-=======
         <Stack.Screen 
           name="DrugsInfo" 
           component={DrugsInfoComponent} 
@@ -49,7 +44,6 @@ export default function App() {
           name="TestFile" 
           component={TestFile} 
         />
->>>>>>> Stashed changes
       </Stack.Navigator>
     </NavigationContainer>
   );
