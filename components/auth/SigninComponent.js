@@ -41,7 +41,7 @@ class SigninComponent extends Component {
           }
         };
         console.log(newUser);
-        axios.post('https://startupweek-stoned.herokuapp.com/auth/users/', newUser, axiosConfig)
+        axios.post('https://startupweek-stoned.herokuapp.com/users/', newUser, axiosConfig)
         .then((response) => {
           this.props.navigation.navigate('Login');
         })

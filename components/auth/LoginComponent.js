@@ -30,7 +30,7 @@ class LoginComponent extends Component {
           Authorization: 'Basic ' + encoded 
       }
     };
-    axios.get('https://startupweek-stoned.herokuapp.com/auth/users/login', axiosConfig)
+    axios.get('https://startupweek-stoned.herokuapp.com/users/login', axiosConfig)
     .then((response) => {
       // console.log(response.data.token);
       this.props.navigation.navigate('Home');
