@@ -34,7 +34,7 @@ class LoginComponent extends Component {
     .then((response) => {
       // console.log(response.data.token);
       this.props.navigation.navigate('Home');
-      this._storeData(response.data.token);
+      this._storeData(response.data.token.token);
     })
     .catch((error) => {
       console.log("🚫" + error);
