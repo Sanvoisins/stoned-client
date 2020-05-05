@@ -7,6 +7,7 @@ import SigninComponent from './components/auth/SigninComponent';
 import HomeComponent from './components/HomeComponent';
 import MenuComponent from './components/user/MenuComponent';
 import DrugsInfoComponent from './components/drugs/DrugsInfoComponent'
+import DetailDrug from './components/drugs/Information/DetailDrugComponent.js';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,10 @@ export default function App() {
         <Stack.Screen
           name="DrugsInfo"
           component={DrugsInfoComponent}
+        />
+        <Stack.Screen
+          name="DetailDrug"
+          component={DetailDrug}
         />
       </Stack.Navigator>
     </NavigationContainer>

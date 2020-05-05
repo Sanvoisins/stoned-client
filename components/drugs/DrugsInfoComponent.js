@@ -3,8 +3,12 @@ import { Text, View, StyleSheet, Image, AsyncStorage } from 'react-native'
 import { Appbar, Button, Portal, Modal } from 'react-native-paper';
 import * as axios from 'axios';
 
-function Separator() {
-    return <View style={styles.separator} />;
+function Separator1() {
+    return <View style={styles.separator1} />;
+}
+
+function Separator2() {
+    return <View style={styles.separator2} />;
 }
 
 export class DrugsInfoComponent extends Component {
@@ -15,13 +19,9 @@ export class DrugsInfoComponent extends Component {
         super(props);
         this.state = {
             token: '',
-            visible: false,
             image : { uri: 'https://picsum.photos/700' },
             buttonTitle : "Statut",
-            drug : {},
-            // title1 : "Cannabis",
-            resume1 : "Le cannabis est une plante : il se présente sous forme « d’herbe » (mélange de feuilles, de tiges et de fleurs séchées), de résine (obtenue en pressant les fleurs), ou d’huile (résine macérée dans de l’alcool).",
-            resume2 : "Le principe actif responsable des effets du cannabis est le THC (Tétrahydrocannabinol). Sa concentration varie de manière importante, de 10% en moyenne pour l’herbe et la résine à 30% pour l’huile. Plus la concentration est élevée, plus les effets du cannabis peuvent être importants."
+            drug : {}
         };
     }
 
@@ -83,57 +83,52 @@ export class DrugsInfoComponent extends Component {
               <View style={styles.center}>
                   <View style={styles.topCenter}>
                     <Text style={styles.title1}>
-                    {this.state.drug.name}
-                        </Text>
-                        <Button style={styles.buttonFalse} mode="contained">
-                            Drogue Douce
-                        </Button>
-
-                    </View>
-                    <View style={styles.bottomCenter}>
-                        <Text style={styles.resume}>
-                            {this.state.resume1}
-                        </Text>
-                        <Text style={styles.resume}>
-                            {this.state.resume2}
-                        </Text>
-                        {/* <Button mode="outlined" onPress={() => this.props.navigation.navigate('TestFile')}>
-            Go drugs
-          </Button> */}
-                    </View>
+                        {this.state.drug.name}
+                    </Text>
+                    <Button style={styles.buttonFalse} mode="contained">
+                        {this.state.drug.type_name}
+                    </Button>
+                </View>
+                
+                <View style={styles.bottomCenter}>
+                <Separator1></Separator1>
+                    <Text style={styles.resume}>
+                        {this.state.drug.summary}
+                    </Text>
+                </View>
               </View>
-              <Separator></Separator>
+              <Separator2></Separator2>
               <View style={styles.bottom}>
                     <Text style={styles.title2}>
                         Information
                     </Text>
                     <View style={styles.buttonList}>
-                        <Button style={styles.button} mode="contained">
+                        <Button style={styles.button} mode="contained" onPress={() => { this.props.navigation.navigate('DetailDrug', {title:"Statut legal", content:this.state.drug.legal_status})}}>
                             Statut légal
                         </Button>
-                        <Button style={styles.button} mode="contained">
+                        <Button style={styles.button} mode="contained" onPress={() => { this.props.navigation.navigate('DetailDrug', {title:"Depistage", content:this.state.drug.drug_testing})}}>
                             Depistage
                         </Button>
-                        <Button style={styles.button} mode="contained">
+                        <Button style={styles.button} mode="contained" onPress={() => { this.props.navigation.navigate('DetailDrug', {title:"Mode de consommation", content:this.state.drug.way_consuming})}}>
                             Mode de consommation
                         </Button>
                     </View>
                     <View style={styles.buttonList}>
-                        <Button style={styles.button} mode="contained">
-                            Effet recherché
+                        <Button style={styles.button} mode="contained" onPress={() => { this.props.navigation.navigate('DetailDrug', {title:"Effets recherchés", content:this.state.drug.desired_effect})}}>
+                            Effets recherchés
                         </Button>
-                        <Button style={styles.button} mode="contained">
+                        <Button style={styles.button} mode="contained" onPress={() => { this.props.navigation.navigate('DetailDrug', {title:" Effets secondaires", content:this.state.drug.secondary_effect})}}>
                             Effets secondaires
                         </Button>
                     </View>
                     <View style={styles.buttonList}>
-                        <Button style={styles.button} mode="contained">
+                        <Button style={styles.button} mode="contained" onPress={() => { this.props.navigation.navigate('DetailDrug', {title:"Risques et complications", content:this.state.drug.risks_complications})}}>
                             Risques et complications
                         </Button>
-                        <Button style={styles.button} mode="contained">
+                        <Button style={styles.button} mode="contained" onPress={() => { this.props.navigation.navigate('DetailDrug', {title:"Dépendance", content:this.state.drug.addiction})}}>
                             Dépendance
                         </Button>
-                        <Button style={styles.button} mode="contained">
+                        <Button style={styles.button} mode="contained" onPress={() => { this.props.navigation.navigate('DetailDrug', {title:"Conseils", content:this.state.drug.risk_reduction_tips})}}>
                             Conseils
                         </Button>
                     </View>
@@ -160,13 +155,13 @@ const styles = StyleSheet.create({
     },
     center: {
         width: '100%',
-        height: '35%',
+        height: '30%',
         backgroundColor: 'white',
         alignItems: 'center'
     },
     bottom: {
         width: '100%',
-        height: '45%',
+        height: '50%',
         backgroundColor: 'white',
         alignItems: 'center'
 
@@ -176,10 +171,16 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     bottomCenter: {
-        marginTop: 40,
+        marginTop: 15,
         backgroundColor: "white"
     },
-    separator: {
+    separator1: {
+        marginBottom: 15,
+        borderBottomColor: '#737373',
+        borderBottomWidth: 1,
+        marginHorizontal: 30
+    },
+    separator2: {
         marginTop: 20,
         borderBottomColor: '#737373',
         borderBottomWidth: 1,
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
         height: 200
     },
     title1: {
-        marginRight: 60,
+        marginRight: 50,
         marginTop: 20,
         fontSize: 40,
         fontWeight: "bold",
@@ -225,7 +226,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "bold",
         marginHorizontal: 5,
-        marginVertical: 5,
     }
   });
 export default DrugsInfoComponent
