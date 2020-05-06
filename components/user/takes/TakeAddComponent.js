@@ -159,7 +159,6 @@ class TakeAddComponent extends Component {
   _register = () => {
     this._getGeocodeVerse();
     setTimeout(() => {
-      console.log(this.state.selectedDrogue);
       const newTake = {
         date: this.state.date + ' ' + this.state.time,
         quantity: this.state.quantity.toString(),
@@ -167,11 +166,28 @@ class TakeAddComponent extends Component {
         adress: this.state.street + " " + this.state.postcode + " " + this.state.city,
         latitude: this.state.latitude,
         longitude: this.state.longitude,
-        drug_id: this.state.selectedDrogueId.toString()
+        drug_id: this.state.selectedDrogueId
       }
-      console.log(newTake)
+      this._postNewTake(newTake);
+      this.props.navigation.navigate('TakesList');
     }, 1000);
   }
+  _postNewTake = (body) => {
+    const link = "https://startupweek-stoned.herokuapp.com/takes/user/" + this.state.userId;
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': this.state.token
+      }
+    };
+    axios.post(link, body, axiosConfig)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.error("🚫" + error);
+    });
+  };
 
   componentDidMount() {
     this._retrieveData();
@@ -220,7 +236,7 @@ class TakeAddComponent extends Component {
               colorMax={"#6200EE"}
               colorMin={"#6200EE"}
               value={this.state.quantity}
-              onChange={(num)=>{this.setState({take: {quantity: num}})}}
+              onChange={(num)=>{this.setState({quantity: num})}}
             />
           </View>
         </View>
