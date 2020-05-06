@@ -10,14 +10,14 @@ class LoginComponent extends Component {
     this.state = {
       errorMessage: '',
       email: '',
-      password: ''
+      password: '',
+      userId: '2'
     };
   }
 
-  _storeData = (token) => {
+  _storeData = (token, userId) => {
     try {
-      // console.log("Login : " + this.state.token);
-      AsyncStorage.setItem('@token', token);
+      AsyncStorage.multiSet([['@token', token], ['@userId', userId]])
     } catch (error) {
      console.error("🚫" + error);
     }
@@ -30,11 +30,11 @@ class LoginComponent extends Component {
           Authorization: 'Basic ' + encoded
       }
     };
-    axios.get('https://startupweek-stoned.herokuapp.com/auth/users/login', axiosConfig)
+    axios.get('https://startupweek-stoned.herokuapp.com/users/login', axiosConfig)
     .then((response) => {
       // console.log(response.data.token);
+      this._storeData(response.data.token.token, response.data.token.user_id.toString());
       this.props.navigation.navigate('Home');
-      this._storeData(response.data.token);
     })
     .catch((error) => {
       console.log("🚫" + error);
@@ -47,7 +47,6 @@ class LoginComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.top}>
           <Appbar.Header>
                 <Appbar.Content
                     title="STONED"

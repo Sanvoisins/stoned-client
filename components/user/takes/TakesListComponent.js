@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Appbar, Button } from 'react-native-paper';
 
-class ListTakesComponent extends Component {
+class TakesListComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +22,7 @@ class ListTakesComponent extends Component {
           />
         </Appbar.Header>
         <View style={styles.top}>
+          <Button onPress={() => {this.props.navigation.navigate('TakeInfo')}} mode='contained'>Information TAKE</Button>
         </View>
         <View style={styles.center}>
 
@@ -61,4 +62,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ListTakesComponent;
+export default TakesListComponent;

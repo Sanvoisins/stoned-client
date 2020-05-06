@@ -41,7 +41,7 @@ class SigninComponent extends Component {
           }
         };
         console.log(newUser);
-        axios.post('https://startupweek-stoned.herokuapp.com/auth/users/', newUser, axiosConfig)
+        axios.post('https://startupweek-stoned.herokuapp.com/users/', newUser, axiosConfig)
         .then((response) => {
           this.props.navigation.navigate('Login');
         })
@@ -58,79 +58,76 @@ class SigninComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.top}>
-        </View>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Appbar.Header>
-          <Appbar.BackAction
-            onPress={() => this.props.navigation.navigate('Login')}
-          />
-          <Appbar.Content
-                title="STONED"
-                // subtitle="Subtitle"
-          />
-        </Appbar.Header>
-      {/* <View style={styles.top}>
-      </View> */}
-        <View style={styles.center}>
-          <Title style={styles.errorMessage}>{ this.state.errorMessage }</Title>
-          <TextInput
-            style={styles.text}
-            label='Email'
-            value={this.state.email}
-            onChangeText={text => this.setState({ email: text })}
-            autoCompleteType="email"
-            textContentType="emailAddress"
-          />
-          <TextInput
-            style={styles.text}
-            label='Mot de passe'
-            value={this.state.password}
-            onChangeText={text => this.setState({password: text})}
-            autoCompleteType="password"
-            textContentType="password"
-            secureTextEntry={true}
-          />
-          <TextInput
-            style={styles.text}
-            label='Confirmer mot de passe'
-            value={this.state.confirmedPassword}
-            onChangeText={text => this.setState({confirmedPassword: text })}
-            autoCompleteType="password"
-            textContentType="password"
-            secureTextEntry={true}
-          />
-          <TextInput
-            style={styles.text}
-            label='Prénom'
-            value={this.state.first_name}
-            onChangeText={text => this.setState({ first_name: text })}
-            autoCompleteType="name"
-            textContentType="name"
-          />
-          <TextInput
-            style={styles.text}
-            label='Nom'
-            value={this.state.last_name}
-            onChangeText={text => this.setState({ last_name: text })}
-            autoCompleteType="name"
-            textContentType="name"
-          />
-          <TextInput
-            style={styles.text}
-            label='Age'
-            value={this.state.age}
-            mode='numeric'
-            onChangeText={text => this.setState({ age: text })}
-            keyboardType="numeric"
-          />
-        </View>
+          <Appbar.Header>
+            <Appbar.BackAction
+              onPress={() => this.props.navigation.navigate('Login')}
+            />
+            <Appbar.Content
+                  title="STONED"
+                  // subtitle="Subtitle"
+            />
+          </Appbar.Header>
+        <ScrollView>
+          <View style={styles.center}>
+            <Title style={styles.errorMessage}>{ this.state.errorMessage }</Title>
+            <TextInput
+              style={styles.text}
+              label='Email'
+              value={this.state.email}
+              onChangeText={text => this.setState({ email: text })}
+              autoCompleteType="email"
+              textContentType="emailAddress"
+            />
+            <TextInput
+              style={styles.text}
+              label='Mot de passe'
+              value={this.state.password}
+              onChangeText={text => this.setState({password: text})}
+              autoCompleteType="password"
+              textContentType="password"
+              secureTextEntry={true}
+            />
+            <TextInput
+              style={styles.text}
+              label='Confirmer mot de passe'
+              value={this.state.confirmedPassword}
+              onChangeText={text => this.setState({confirmedPassword: text })}
+              autoCompleteType="password"
+              textContentType="password"
+              secureTextEntry={true}
+            />
+            <TextInput
+              style={styles.text}
+              label='Prénom'
+              value={this.state.first_name}
+              onChangeText={text => this.setState({ first_name: text })}
+              autoCompleteType="name"
+              textContentType="name"
+            />
+            <TextInput
+              style={styles.text}
+              label='Nom'
+              value={this.state.last_name}
+              onChangeText={text => this.setState({ last_name: text })}
+              autoCompleteType="name"
+              textContentType="name"
+            />
+            <TextInput
+              style={styles.text}
+              label='Age'
+              value={this.state.age}
+              mode='numeric'
+              onChangeText={text => this.setState({ age: text })}
+              keyboardType="numeric"
+            />
+          </View>
+        </ScrollView>
         <View style={styles.bottom}>
           <Button style={styles.button} mode="contained" onPress={() => this._registerUser()}>
             Enregistrer mon inscription
           </Button>
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }

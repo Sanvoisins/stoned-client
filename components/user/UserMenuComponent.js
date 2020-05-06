@@ -1,12 +1,65 @@
 import React, { Component } from 'react';
-import {  View, StyleSheet } from 'react-native';
+import {  View, StyleSheet, AsyncStorage } from 'react-native';
 import { Appbar, Avatar, Title, Button, Subheading } from 'react-native-paper';
+import * as axios from 'axios';
 
-class MenuComponent extends Component {
+class UserMenuComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: '',
+      token: '',
+      userId: 0
     };
+  }
+
+  _retrieveData = async () => {
+    try {
+        const token = await AsyncStorage.getItem('@token');
+        const userId = await AsyncStorage.getItem('@userId');
+        if (userId !== null) {
+          // console.log("Home : " + token);
+          this.setState({ userId })
+        }
+        if (token !== null) {
+            // console.log("Home : " + token);
+            this.setState({ token })
+        }
+    } catch (error) {
+        console.error("🚫" + error);
+    }
+  };
+
+  _getUser = () => {
+    const userId = this.state.userId;
+    const link = `https://startupweek-stoned.herokuapp.com/users/${userId}`;
+    // console.log(link)
+    let axiosConfig = {
+      headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': this.state.token
+      }
+    };
+    axios.get(link, axiosConfig)
+    .then((response) => {
+        // console.log(response.data);
+        this.setState({
+            user: response.data.user
+        })
+    })
+    .catch((error) => {
+        console.error("🚫" + error);
+        this.setState({
+            errorMessage: 'Problèmes d\'affichage des données'
+        });
+    });
+  }
+
+  componentDidMount = () => {
+    this._retrieveData();
+    setTimeout(() => {
+      this._getUser();
+    }, 2000);
   }
 
   render() {
@@ -27,8 +80,9 @@ class MenuComponent extends Component {
           </Appbar.Header>
           <View style={styles.top} >
             <Avatar.Icon size={150} icon="account" style={styles.avatar} />
-            <Title style={styles.title}>Nom</Title>
-            <Subheading style={styles.title}>Prenom</Subheading>
+            <Title style={styles.title}>{ this.state.user.last_name }</Title>
+            <Subheading style={styles.title}>{ this.state.user.email }</Subheading>
+            <Subheading style={styles.title}>{ this.state.user.age }</Subheading>
           </View>
           <View style={styles.center} >
             <Button mode="contained" onPress={() => this.props.navigation.navigate('TakesList')} style={styles.button}>
@@ -47,7 +101,7 @@ class MenuComponent extends Component {
   }
 }
 
-export default MenuComponent;
+export default UserMenuComponent;
 
 const styles = StyleSheet.create({
   container: {

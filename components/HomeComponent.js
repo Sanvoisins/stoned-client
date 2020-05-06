@@ -59,7 +59,7 @@ export default class HomeComponent extends Component {
                 if(element[types.PERTU].length == 0) {
                     // console.log(types.PERTU + ' Vide');
                 } else {
-                    console.log(types.PERTU);
+                    // console.log(types.PERTU);
                     this.setState({
                         PERTU: element[types.PERTU]
                     })
