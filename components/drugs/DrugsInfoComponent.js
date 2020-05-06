@@ -77,7 +77,7 @@ export class DrugsInfoComponent extends Component {
               <View style={styles.top}>
                 <Image
                     style={styles.image}
-                    source={this.state.image}
+                    source={{ uri: this.state.drug.img }}
                 />
               </View>
               <View style={styles.center}>

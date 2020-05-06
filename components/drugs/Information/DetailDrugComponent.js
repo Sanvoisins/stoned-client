@@ -38,12 +38,12 @@ export class DetailDrug extends Component {
                 
                 </Appbar.Header>
                 <ScrollView>
-                    <View style={styles.top}>
+                    {/* <View style={styles.top}> */}
                         <Text style={styles.title}>
                             {this.state.title}
                         </Text>
                         
-                    </View>
+                    {/* </View> */}
                  
                     <View style={styles.center}>
                     <Text style={styles.text}>
@@ -77,16 +77,18 @@ const styles = StyleSheet.create({
     center: {
       width: '100%', 
       height: '80%', 
-      backgroundColor: 'grey', 
+      backgroundColor: 'white', 
       alignItems: 'center', 
       padding: 20
     },
     title: {
         marginTop: 20,
+        marginBottom: 20,
         fontSize: 30,
         fontWeight: "bold",
         textShadowColor: "grey",
-        textShadowRadius: 3
+        textShadowRadius: 3,
+        textAlign: 'center'
     },
     text: {
         fontSize: 15,
