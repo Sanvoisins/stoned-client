@@ -59,7 +59,7 @@ export default class HomeComponent extends Component {
                 if(element[types.PERTU].length == 0) {
                     // console.log(types.PERTU + ' Vide');
                 } else {
-                    console.log(types.PERTU);
+                    // console.log(types.PERTU);
                     this.setState({
                         PERTU: element[types.PERTU]
                     })
@@ -111,7 +111,7 @@ export default class HomeComponent extends Component {
             />
             <Appbar.Action
                 icon="account-circle"
-                onPress={() => this.props.navigation.navigate('Menu')}
+                onPress={() => this.props.navigation.navigate('UserMenu')}
             />
         </Appbar.Header>
         {/* <Searchbar

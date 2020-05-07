@@ -5,9 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from './components/auth/LoginComponent';
 import SigninComponent from './components/auth/SigninComponent';
 import HomeComponent from './components/HomeComponent';
-import MenuComponent from './components/user/MenuComponent';
+import UserMenuComponent from './components/user/UserMenuComponent';
+import TakesListComponent from './components/user/takes/TakesListComponent';
 import DrugsInfoComponent from './components/drugs/DrugsInfoComponent'
 import DetailDrug from './components/drugs/Information/DetailDrugComponent.js';
+import TakeAddComponent from './components/user/takes/TakeAddComponent';
+import TakeInfoComponent from './components/user/takes/TakeInfoComponent';
 
 const Stack = createStackNavigator();
 
@@ -33,16 +36,24 @@ export default function App() {
           component={HomeComponent}
         />
         <Stack.Screen
-          name="Menu"
-          component={MenuComponent}
-        />
-        <Stack.Screen
           name="DrugsInfo"
           component={DrugsInfoComponent}
         />
         <Stack.Screen
-          name="DetailDrug"
-          component={DetailDrug}
+          name="TakesList"
+          component={TakesListComponent}
+        />
+        <Stack.Screen
+          name="TakeInfo"
+          component={TakeInfoComponent}
+        />
+        <Stack.Screen
+          name="AddTake"
+          component={TakeAddComponent}
+        />
+        <Stack.Screen
+          name="UserMenu"
+          component={UserMenuComponent}
         />
       </Stack.Navigator>
     </NavigationContainer>
