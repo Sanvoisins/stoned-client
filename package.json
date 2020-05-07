@@ -26,7 +26,7 @@
     "react-native-floating-action": "^1.20.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-input-spinner": "^1.2.10",
-    "react-native-maps": "0.26.1",
+    "react-native-maps": "^0.27.1",
     "react-native-paper": "^3.8.0",
     "react-native-reanimated": "~1.7.0",
     "react-native-safe-area-context": "^0.7.3",

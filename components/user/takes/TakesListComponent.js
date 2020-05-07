@@ -1,12 +1,57 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Appbar, Button } from 'react-native-paper';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Appbar, List } from 'react-native-paper';
 
 class TakesListComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      token: '',
+      userId: '',
+      drugId: '',
+      takes: []
     };
+  }
+  _retrieveData = async () => {
+    try {
+        const token = await AsyncStorage.getItem('@token');
+        const userId = await AsyncStorage.getItem('@userId');
+        if (userId !== null) {
+          // console.log("Home : " + userId);
+          this.setState({ userId })
+        }
+        if (token !== null) {
+            // console.log("Home : " + token);
+            this.setState({ token })
+        }
+    } catch (error) {
+        console.error("🚫" + error);
+    }
+  };
+  _getTakes = () => {
+    const link = 'https://startupweek-stoned.herokuapp.com/takes/user/' + this.state.userId;
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': this.state.token
+      }
+    }; 
+    axios.get(link, axiosConfig)
+    .then((response) => {
+        this.setState({
+            takes: response.data.takes
+        })
+    })
+    .catch((error) => {
+        console.log("🚫" + error);
+        this.setState({
+            errorMessage: 'Problèmes d\'affichage des données'
+        });
+    });
+  };
+
+  componentWillMount = () => {
+    this._getTakes();
   }
 
   render() {
@@ -21,15 +66,19 @@ class TakesListComponent extends Component {
               subtitle="Liste de mes prises"
           />
         </Appbar.Header>
-        <View style={styles.top}>
-          <Button onPress={() => {this.props.navigation.navigate('TakeInfo')}} mode='contained'>Information TAKE</Button>
-        </View>
-        <View style={styles.center}>
-
-        </View>
-        <View style={styles.bottom}>
-
-        </View>
+        <ScrollView>
+          {
+            this.state.takes.map((take) => {
+              return(
+                <List.Item
+                  title={take.adress}
+                  description="Item description"
+                  left={props => <List.Icon {...props} icon="pill" />}
+                />
+              )
+            })
+          }
+        </ScrollView>
       </View>
     );
   }

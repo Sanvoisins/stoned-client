@@ -77,10 +77,10 @@ class TakeAddComponent extends Component {
   };
   _getDrugs = () => {
     let axiosConfig = {
-    headers: {
+      headers: {
         'Content-Type': 'application/json',
         'x-access-token': this.state.token
-     }
+      }
     };
     axios.get('https://startupweek-stoned.herokuapp.com/drugs/', axiosConfig)
     .then((response) => {
