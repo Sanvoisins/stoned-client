@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Appbar, List } from 'react-native-paper';
+import { View, StyleSheet, ScrollView, AsyncStorage } from 'react-native';
+import { Appbar, List, Subheading } from 'react-native-paper';
+import * as axios from 'axios';
 
 class TakesListComponent extends Component {
   constructor(props) {
@@ -38,9 +39,9 @@ class TakesListComponent extends Component {
     }; 
     axios.get(link, axiosConfig)
     .then((response) => {
-        this.setState({
-            takes: response.data.takes
-        })
+      this.setState({
+          takes: response.data.takes
+      })
     })
     .catch((error) => {
         console.log("🚫" + error);
@@ -51,7 +52,10 @@ class TakesListComponent extends Component {
   };
 
   componentWillMount = () => {
-    this._getTakes();
+    this._retrieveData()
+    setTimeout(() => {
+      this._getTakes();
+    }, 1000);
   }
 
   render() {
@@ -71,9 +75,11 @@ class TakesListComponent extends Component {
             this.state.takes.map((take) => {
               return(
                 <List.Item
-                  title={take.adress}
-                  description="Item description"
+                  title={take.drug_name}
+                  description={<Subheading>{take.quantity} {take.unit}</Subheading>}
                   left={props => <List.Icon {...props} icon="pill" />}
+                  right={props => <List.Icon {...props} icon="arrow-right" />}
+                  onPress={() => { this.props.navigation.navigate('TakeInfo', {takeId: take.id})}}
                 />
               )
             })

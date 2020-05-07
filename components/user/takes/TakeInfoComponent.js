@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
 import { Appbar, Title, TextInput } from 'react-native-paper';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import * as axios from 'axios';
 
 class TakeInfoComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toke: '',
+      token: '',
       userId: '',
-      longitude: 2.403718,
-      latitude: 48.770888,
-      street: "11 rue de l'insurrection parisienne",
-      postcode: '94600',
-      city: 'Choisy le Roi',
-      date: '7/05/2020',
-      time: '23:45',
-      quantity: '1 roulé',
-      drug: 'Cannabis'
+      takeId: '',
+      longitude: '',
+      latitude: '',
+      adress: '',
+      date: '',
+      time: '',
+      quantity: '',
+      drug: ''
     };
   }
   _retrieveData = async () => {
@@ -36,6 +36,42 @@ class TakeInfoComponent extends Component {
         console.error("🚫" + error);
     }
   };
+  _getTake = () => {
+    const link = 'https://startupweek-stoned.herokuapp.com/takes/' + this.state.takeId;
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': this.state.token
+      }
+    }; 
+    axios.get(link, axiosConfig)
+    .then((response) => {
+      console.log(response.data)
+      this.setState({
+          longitude: response.data.take.longitude,
+          latitude: response.data.take.latitude,
+          adress: response.data.take.adress,
+          date: response.data.take.date,
+          quantity: response.data.take.quantity + " " + response.data.take.unit,
+          drug: response.data.take.drug_name,
+      })
+    })
+    .catch((error) => {
+        console.log("🚫" + error);
+        this.setState({
+            errorMessage: 'Problèmes d\'affichage des données'
+        });
+    });
+  };
+  componentDidMount = () => {
+    this.setState({
+      takeId: this.props.route.params.takeId
+    });
+    this._retrieveData();
+    setTimeout(() => {
+      this._getTake();
+    }, 1000);
+  }
 
   render() {
     return (
@@ -72,19 +108,12 @@ class TakeInfoComponent extends Component {
           </View>
         </View>
         <View style={styles.allContainer}>
-          <View  style={styles.insideCenterContainer}>
+          <View  style={styles.insideContainer}>
             <TextInput
-              style={{width: '40%', margin: 10}}
+              style={{heigth: '80%'}}
               mode='outlined'
-              label='Date'
+              label='Date et heure'
               value={this.state.date}
-              disabled={true}
-            />
-            <TextInput
-              style={{width: '40%', margin: 10}}
-              mode='outlined'
-              label='Heure'
-              value={this.state.time}
               disabled={true}
             />
           </View>
@@ -92,28 +121,10 @@ class TakeInfoComponent extends Component {
         <View style={styles.allContainer}>
           <View  style={styles.insideContainer}>
             <TextInput
-              style={{heigth: '70%'}}
+              style={{heigth: '80%'}}
               mode='outlined'
               label='Adresse'
-              value={this.state.street}
-              disabled={true}
-            />
-          </View>
-        </View>
-        <View style={styles.allContainer}>
-          <View style={styles.insideCenterContainer}>
-          <TextInput
-              style={{width: '40%', margin: 10}}
-              mode='outlined'
-              label='Code Postal'
-              value={this.state.postcode}
-              disabled={true}
-            />
-            <TextInput
-              style={{width: '40%', margin: 10}}
-              mode='outlined'
-              label='Ville'
-              value={this.state.city}
+              value={this.state.adress}
               disabled={true}
             />
           </View>
@@ -165,7 +176,7 @@ const styles = StyleSheet.create({
   insideContainer: {
     flex: 1,
     width: '90%',
-    maxHeight: '80%'
+    maxHeight: '90%'
   },
   insideCenterContainer: {
     flex: 1,
