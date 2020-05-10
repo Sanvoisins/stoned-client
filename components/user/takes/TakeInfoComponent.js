@@ -77,13 +77,13 @@ class TakeInfoComponent extends Component {
     return (
       <View style={styles.ownContainer}>
         <Appbar.Header>
-        <Appbar.BackAction
-            onPress={() => this.props.navigation.navigate('TakesList')}
-        />
-        <Appbar.Content
-            title="STONED"
-            subtitle="Liste de mes prises"
-        />
+          <Appbar.BackAction
+              onPress={() => this.props.navigation.navigate('TakesList')}
+          />
+          <Appbar.Content
+              title="STONED"
+              subtitle="Liste de mes prises"
+          />
         </Appbar.Header>
         <View style={styles.allContainer}>
           <View  style={styles.insideContainer}>
@@ -140,7 +140,7 @@ class TakeInfoComponent extends Component {
                 longitudeDelta: 0.03,   
               }} 
             >
-              <MapView.Marker
+            <MapView.Marker
               coordinate={{ longitude: this.state.longitude, latitude: this.state.latitude}}
               title={this.state.markerTitle}
               pinColor = {"#6200ee"}

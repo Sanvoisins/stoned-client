@@ -10,7 +10,8 @@ class TakesListComponent extends Component {
       token: '',
       userId: '',
       drugId: '',
-      takes: []
+      takes: [],
+      errorMessage: 'Pas de prises'
     };
   }
   _retrieveData = async () => {
@@ -39,9 +40,11 @@ class TakesListComponent extends Component {
     }; 
     axios.get(link, axiosConfig)
     .then((response) => {
-      this.setState({
+      if(response.data.takes !== undefined) {
+        this.setState({
           takes: response.data.takes
-      })
+        })
+      }
     })
     .catch((error) => {
         console.log("🚫" + error);
@@ -51,7 +54,7 @@ class TakesListComponent extends Component {
     });
   };
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     this._retrieveData()
     setTimeout(() => {
       this._getTakes();
@@ -72,16 +75,23 @@ class TakesListComponent extends Component {
         </Appbar.Header>
         <ScrollView>
           {
-            this.state.takes.map((take) => {
-              return(
-                <List.Item
-                  title={take.drug_name}
-                  description={<Subheading>{take.quantity} {take.unit}</Subheading>}
-                  left={props => <List.Icon {...props} icon="pill" />}
-                  right={props => <List.Icon {...props} icon="arrow-right" />}
-                  onPress={() => { this.props.navigation.navigate('TakeInfo', {takeId: take.id})}}
-                />
-              )
+            this.state.takes.map((take, i) => {
+              if(take.drug_name === undefined) {
+                return (
+                  <Title>{ this.state.errorMessage }</Title>
+                )
+              } else {
+                return(
+                  <List.Item
+                    key= {i}
+                    title={take.drug_name}
+                    description={<Subheading>{take.quantity} {take.unit}</Subheading>}
+                    left={props => <List.Icon {...props} icon="pill" />}
+                    right={props => <List.Icon {...props} icon="arrow-right" />}
+                    onPress={() => { this.props.navigation.navigate('TakeInfo', {takeId: take.id})}}
+                  />
+                )
+              }
             })
           }
         </ScrollView>

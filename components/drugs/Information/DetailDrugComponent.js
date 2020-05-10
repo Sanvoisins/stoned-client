@@ -7,7 +7,7 @@ function Separator() {
     return <View style={styles.separator} />;
 }
 
-export class DetailDrug extends Component {
+export class DetailDrugComponent extends Component {
     static navigationOptions = {
         headerMode: null
     }
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
-        fontWeight: "bold",
         marginHorizontal: 5
     },
     separator: {
@@ -104,4 +103,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default DetailDrug
+export default DetailDrugComponent;

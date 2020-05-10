@@ -123,7 +123,7 @@ class TakeAddComponent extends Component {
        })
       } else {
         this.setState({
-          data: 'Problèmes avec la localisation'
+          errorMessage: 'Problèmes avec la localisation'
         });
       }
    })
@@ -157,20 +157,27 @@ class TakeAddComponent extends Component {
       });
   }
   _register = () => {
-    this._getGeocodeVerse();
-    setTimeout(() => {
-      const newTake = {
-        date: this.state.date + ' ' + this.state.time,
-        quantity: this.state.quantity.toString(),
-        unit: this.state.unit,
-        adress: this.state.street + " " + this.state.postcode + " " + this.state.city,
-        latitude: this.state.latitude,
-        longitude: this.state.longitude,
-        drug_id: this.state.selectedDrogueId
-      }
-      this._postNewTake(newTake);
-      this.props.navigation.navigate('TakesList');
-    }, 1000);
+    const data = this.state;
+    if(data.date !== '' && data.time !== '' && data.quantity.toString() !== '' && data.unit !== '' && data.street !== '' && data.postcode !== '' && data.city !== '' && data.latitude !== '' && data.longitude !== '' && data.selectedDrogueId !== 0) {
+      this._getGeocodeVerse();
+      setTimeout(() => {
+        const newTake = {
+          date: this.state.date + ' ' + this.state.time,
+          quantity: this.state.quantity.toString(),
+          unit: this.state.unit,
+          adress: this.state.street + " " + this.state.postcode + " " + this.state.city,
+          latitude: this.state.latitude,
+          longitude: this.state.longitude,
+          drug_id: this.state.selectedDrogueId
+        }
+        this._postNewTake(newTake);
+        this.props.navigation.navigate('TakesList');
+      }, 1000);
+    } else {
+      this.setState({
+        errorMessage: 'Tous les champs n\'ont pas été remplis'
+    });
+    } 
   }
   _postNewTake = (body) => {
     const link = "https://startupweek-stoned.herokuapp.com/takes/user/" + this.state.userId;
@@ -211,41 +218,6 @@ class TakeAddComponent extends Component {
                 subtitle="Ajout d'une prise"
             />
         </Appbar.Header>
-        <View style={styles.firstContainer}>
-          <View style={styles.oneInside}>
-            <Picker
-              mode="dropdown"
-              selectedValue={this.state.selectedDrogue}  
-              style={{ width: '50%', marginTop: -85, marginBottom: -50}}
-              onValueChange={(itemValue, itemPosition) => this.setState({selectedDrogue: itemValue})} 
-            >
-             {
-              this.state.drug.map((element, i) => {return(<Picker.Item key={element.id} label={element.name} value={element.id} />);})
-             }
-              
-          </Picker>
-          </View>
-        </View>
-        <View style={styles.centerContainers}>
-          <Button style={styles.twoCenterInside} mode="contained" onPress={() => this._setQuantityStep()}>Quantité x{this.state.quantityStep}</Button>
-          <View style={styles.twoInside}>
-            <InputSpinner
-              max={1000000}
-              min={0}
-              step={step}
-              colorMax={"#6200EE"}
-              colorMin={"#6200EE"}
-              value={this.state.quantity}
-              onChange={(num)=>{this.setState({quantity: num})}}
-            />
-          </View>
-        </View>
-        <View style={styles.centerContainers}>
-          <Button style={styles.threeInside} labelStyle={styles.labelButton} mode="contained" onPress={() => this.setState({unit: 'grammes'})}>GRAMMES</Button>
-          <Button style={styles.threeInside} labelStyle={styles.labelButton} mode="contained" onPress={() => this.setState({unit: 'traces'})}>TRACES</Button>
-          <Button style={styles.threeInside} labelStyle={styles.labelButton} mode="contained" onPress={() => this.setState({unit: 'pilules'})}>PILULES</Button>
-          <Button style={styles.threeInside} labelStyle={styles.labelButton} mode="contained" onPress={() => this.setState({unit: 'roulés'})}>ROULÉS</Button>
-        </View>
         <View style={styles.middleContainer}>
           <View style={styles.twoInside}>
             <DatePicker
@@ -323,6 +295,41 @@ class TakeAddComponent extends Component {
               onChangeText={text => this.setState({ postcode: text })}
             />
           </View>
+        </View>
+        <View style={styles.firstContainer}>
+          <View style={styles.oneInside}>
+            <Picker
+              mode="dropdown"
+              selectedValue={this.state.selectedDrogue}  
+              style={{ width: '50%', marginTop: -85, marginBottom: -50}}
+              onValueChange={(itemValue, itemPosition) => this.setState({selectedDrogue: itemValue})} 
+            >
+             {
+              this.state.drug.map((element, i) => {return(<Picker.Item key={element.id} label={element.name} value={element.id} />);})
+             }
+              
+          </Picker>
+          </View>
+        </View>
+        <View style={styles.centerContainers}>
+          <Button style={styles.twoCenterInside} mode="contained" onPress={() => this._setQuantityStep()}>Quantité x{this.state.quantityStep}</Button>
+          <View style={styles.twoInside}>
+            <InputSpinner
+              max={1000000}
+              min={0}
+              step={step}
+              colorMax={"#6200EE"}
+              colorMin={"#6200EE"}
+              value={this.state.quantity}
+              onChange={(num)=>{this.setState({quantity: num})}}
+            />
+          </View>
+        </View>
+        <View style={styles.centerContainers}>
+          <Button style={styles.threeInside} labelStyle={styles.labelButton} mode="contained" onPress={() => this.setState({unit: 'grammes'})}>GRAMMES</Button>
+          <Button style={styles.threeInside} labelStyle={styles.labelButton} mode="contained" onPress={() => this.setState({unit: 'traces'})}>TRACES</Button>
+          <Button style={styles.threeInside} labelStyle={styles.labelButton} mode="contained" onPress={() => this.setState({unit: 'pilules'})}>PILULES</Button>
+          <Button style={styles.threeInside} labelStyle={styles.labelButton} mode="contained" onPress={() => this.setState({unit: 'roulés'})}>ROULÉS</Button>
         </View>
         <View style={styles.lastContainer}>
           <Button style={styles.oneLittleInside} mode="contained" onPress={() => this._register()} >Enregistrer</Button>

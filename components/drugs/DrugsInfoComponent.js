@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, AsyncStorage } from 'react-native'
+import { Text, View, StyleSheet, Image, AsyncStorage, ScrollView } from 'react-native'
 import { Appbar, Button, Portal, Modal } from 'react-native-paper';
 import * as axios from 'axios';
 
@@ -45,10 +45,10 @@ export class DrugsInfoComponent extends Component {
                 'x-access-token': this.state.token
             }
         };
-        axios.get("https://startupweek-stoned.herokuapp.com/drugs/types/" + drugId, axiosConfig)
+        axios.get("https://startupweek-stoned.herokuapp.com/drugs/" + drugId, axiosConfig)
         .then((response) => {
-            // console.log(JSON.stringify(response.data.drugs[0].name))
-            this.setState({drug:response.data.drugs[0]})
+            // console.log(JSON.stringify(response.data.drug))
+            this.setState({drug:response.data.drug})
         })
         .catch((error) => {
             console.log("🚫" + error);
@@ -85,16 +85,20 @@ export class DrugsInfoComponent extends Component {
                     <Text style={styles.title1}>
                         {this.state.drug.name}
                     </Text>
-                    <Button style={styles.buttonFalse} mode="contained">
-                        {this.state.drug.type_name}
-                    </Button>
+                    <View style={styles.topCenter}>
+                        <Button style={styles.buttonFalse} mode="contained">
+                            {this.state.drug.type_name}
+                        </Button>
+                    </View>
                 </View>
                 
                 <View style={styles.bottomCenter}>
                 <Separator1></Separator1>
-                    <Text style={styles.resume}>
-                        {this.state.drug.summary}
-                    </Text>
+                    <ScrollView>
+                        <Text style={styles.resume, {margin: 10}}>
+                                {this.state.drug.summary}
+                        </Text>
+                    </ScrollView>
                 </View>
               </View>
               <Separator2></Separator2>
@@ -157,7 +161,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '30%',
         backgroundColor: 'white',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection: 'column'
     },
     bottom: {
         width: '100%',
@@ -167,8 +172,9 @@ const styles = StyleSheet.create({
 
     },
     topCenter: {
-        backgroundColor: "white",
-        flexDirection: "row"
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     bottomCenter: {
         marginTop: 15,
@@ -187,13 +193,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 30
     },
     image: {
-        width: 400,
+        width: '100%',
         height: 200
     },
     title1: {
-        marginRight: 50,
-        marginTop: 20,
-        fontSize: 40,
+        marginTop: 10,
+        fontSize: 30,
         fontWeight: "bold",
         textShadowRadius: 100
     },

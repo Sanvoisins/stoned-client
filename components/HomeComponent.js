@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
-import { Appbar, Searchbar, Card, Button, Title } from 'react-native-paper';
+import { Appbar, FAB, Card, Button, Title } from 'react-native-paper';
 import types from '../_enums/types';
 import * as axios from 'axios';
 
@@ -40,7 +40,6 @@ export default class HomeComponent extends Component {
         };
         axios.get('https://startupweek-stoned.herokuapp.com/drugs/types/', axiosConfig)
         .then((response) => {
-            // console.log(response.data.drugs);
             this.setState({
                 data: response.data.drugs
             })
@@ -114,76 +113,78 @@ export default class HomeComponent extends Component {
                 onPress={() => this.props.navigation.navigate('UserMenu')}
             />
         </Appbar.Header>
-        {/* <Searchbar
-            placeholder="Recherche"
-            value=""
-        /> */}
-        <View>
-            <Title style={styles.errorMessage}>{ this.state.errorMessage }</Title>
-            <Title style={styles.typeTitle}>{ types.title.PERTU }</Title>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {
-                pertuArr.map((element, i) => {
-                    return (
-                        <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
-                            <Card style={styles.cards}>
-                                <Card.Title
-                                    title={ element.name }
-                                    style={styles.cardHeader}
-                                />
-                                <Card.Cover
-                                    style={styles.cardsImage}
-                                    source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
-                                />
-                            </Card>
-                        </TouchableOpacity>
-                      );
-                })
-            }
-            </ScrollView>
-            <Title style={styles.typeTitle} >{ types.title.STIMU }</Title>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {
-                stimuArr.map((element, i) => {
-                    return (
-                        <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
-                            <Card style={styles.cards}>
-                                <Card.Title
-                                    title={ element.name }
-                                    style={styles.cardHeader}
-                                />
-                                <Card.Cover
-                                    style={styles.cardsImage}
-                                    source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
-                                />
-                            </Card>
-                        </TouchableOpacity>
-                      );
-                })
-            }
-            </ScrollView>
-            <Title style={styles.typeTitle} >{ types.title.DEPRE }</Title>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {
-                depreArr.map((element, i) => {
-                    return (
-                        <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
-                            <Card style={styles.cards}>
-                                <Card.Title
-                                    title={ element.name }
-                                    style={styles.cardHeader}
-                                />
-                                <Card.Cover
-                                    style={styles.cardsImage}
-                                    source={{ uri: 'https://www.clipartkey.com/mpngs/m/43-432142_svg-icon-free-download-drugs-logo-black.png' }}
-                                />
-                            </Card>
-                        </TouchableOpacity>
-                      );
-                })
-            }
-            </ScrollView>
-        </View>
+        <ScrollView showsVerticalScrollIndicator={true}>
+            <View>
+                <Title style={styles.typeTitle}>{ types.title.PERTU }</Title>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {
+                    pertuArr.map((element, i) => {
+                        return (
+                            <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
+                                <Card style={styles.cards}>
+                                    <Card.Title
+                                        title={ element.name }
+                                        style={styles.cardHeader}
+                                    />
+                                    <Card.Cover
+                                        style={styles.cardsImage}
+                                        source={{ uri: element.img }}
+                                    />
+                                </Card>
+                            </TouchableOpacity>
+                        );
+                    })
+                }
+                </ScrollView>
+                <Title style={styles.typeTitle} >{ types.title.STIMU }</Title>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {
+                    stimuArr.map((element, i) => {
+                        return (
+                            <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
+                                <Card style={styles.cards}>
+                                    <Card.Title
+                                        title={ element.name }
+                                        style={styles.cardHeader}
+                                    />
+                                    <Card.Cover
+                                        style={styles.cardsImage}
+                                        source={{ uri: element.img }}
+                                    />
+                                </Card>
+                            </TouchableOpacity>
+                        );
+                    })
+                }
+                </ScrollView>
+                <Title style={styles.typeTitle} >{ types.title.DEPRE }</Title>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {
+                    depreArr.map((element, i) => {
+                        return (
+                            <TouchableOpacity key={i} onPress={() => { this.props.navigation.navigate('DrugsInfo', { drugId: element.id })}}>
+                                <Card style={styles.cards}>
+                                    <Card.Title
+                                        title={ element.name }
+                                        style={styles.cardHeader}
+                                    />
+                                    <Card.Cover
+                                        style={styles.cardsImage}
+                                        source={{ uri: element.img }}
+                                    />
+                                </Card>
+                            </TouchableOpacity>
+                        );
+                    })
+                }
+                </ScrollView>
+            </View>
+        </ScrollView>
+            <FAB
+                style={styles.fab}
+                icon="map-marker"
+                onPress={() => { this.props.navigation.navigate('Places') }}
+            />
       </View>
     );
   }
@@ -213,5 +214,12 @@ const styles = StyleSheet.create({
     },
     errorMessage: {
         color: 'red'
+    },
+    fab: {
+        position: 'absolute',
+        margin: 20,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#6200ee'
     }
 });

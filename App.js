@@ -8,9 +8,10 @@ import HomeComponent from './components/HomeComponent';
 import UserMenuComponent from './components/user/UserMenuComponent';
 import TakesListComponent from './components/user/takes/TakesListComponent';
 import DrugsInfoComponent from './components/drugs/DrugsInfoComponent'
-import DetailDrug from './components/drugs/Information/DetailDrugComponent.js';
+import DetailDrugComponent from './components/drugs/Information/DetailDrugComponent.js';
 import TakeAddComponent from './components/user/takes/TakeAddComponent';
 import TakeInfoComponent from './components/user/takes/TakeInfoComponent';
+import PlacesComponent from './components/maps/PlacesComponent';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,10 @@ export default function App() {
           component={DrugsInfoComponent}
         />
         <Stack.Screen
+          name="DetailDrug"
+          component={DetailDrugComponent}
+        />
+        <Stack.Screen
           name="TakesList"
           component={TakesListComponent}
         />
@@ -54,6 +59,10 @@ export default function App() {
         <Stack.Screen
           name="UserMenu"
           component={UserMenuComponent}
+        />
+        <Stack.Screen
+          name="Places"
+          component={PlacesComponent}
         />
       </Stack.Navigator>
     </NavigationContainer>
