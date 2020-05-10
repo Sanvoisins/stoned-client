@@ -103,8 +103,8 @@ class TakeAddComponent extends Component {
       this.setState({errorMessage: 'PERMISSION NOT GRANTED!'});
     }
     const location = await Location.getCurrentPositionAsync();
-    // this._getGeocodeInverse(location.coords.longitude, location.coords.latitude);
-    this._getGeocodeInverse('2.403718', '48.770888');
+    this._getGeocodeInverse(location.coords.longitude, location.coords.latitude);
+    // this._getGeocodeInverse('2.403718', '48.770888');
   }
   _getGeocodeInverse = (longitude, latitude) => {
     fetch('https://api-adresse.data.gouv.fr/reverse/?lon=' + longitude + '&lat=' + latitude, {
